@@ -3,6 +3,8 @@ import React from "react";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import store from "./store";
 import { up } from "./counterSlice";
+import { asyncUpFetch } from "./counterSlice";
+
 /*
 function reducer(state, action) {
   if (action.type === "up") {
@@ -19,6 +21,9 @@ function Counter() {
   const count = useSelector((state) => {
     return state.counter.value;
   });
+  const status = useSelector((state) => {
+    return state.counter.status;
+  });
   return (
     <div>
       <button
@@ -28,8 +33,19 @@ function Counter() {
         }}
       >
         +
-      </button>{" "}
-      {count}
+      </button>
+      <button
+        onClick={() => {
+          dispatch(asyncUpFetch());
+        }}
+      >
+        + async fetch
+      </button>
+      <br />
+
+      <div>
+        {count} | {status}
+      </div>
     </div>
   );
 }
